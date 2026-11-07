@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-php
+spec:
+  type: {{ .Values.php.serviceType }}
+  selector:
+    app: {{ .Release.Name }}-php
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80

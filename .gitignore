@@ -1,0 +1,5 @@
+.helm-private-values.yaml
+.env
+*.pem
+*.key
+.kube/

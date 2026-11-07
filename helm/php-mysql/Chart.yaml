@@ -1,0 +1,5 @@
+apiVersion: v2
+name: php-mysql
+version: 0.1.0
+appVersion: "1.0.0"
+description: PHP web application and persistent MySQL database

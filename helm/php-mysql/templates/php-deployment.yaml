@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-php
+spec:
+  replicas: {{ .Values.php.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-php
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-php
+    spec:
+      containers:
+        - name: php
+          image: {{ printf "%s:%s" .Values.image.repository (.Values.image.tag | toString) | quote }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-app-config
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-db-credentials
+                  key: MYSQL_PASSWORD
+          resources:
+            requests: {cpu: 50m, memory: 64Mi}
+            limits: {memory: 256Mi}
+          readinessProbe:
+            httpGet: {path: /health.php, port: 80}
+            initialDelaySeconds: 5
+            periodSeconds: 5

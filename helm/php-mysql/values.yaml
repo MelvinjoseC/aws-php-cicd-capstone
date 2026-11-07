@@ -1,0 +1,16 @@
+image:
+  repository: REPLACE_WITH_ECR_IMAGE_URI
+  tag: latest
+  pullPolicy: IfNotPresent
+php:
+  replicas: 2
+  serviceType: ClusterIP
+mysql:
+  image: mysql:8.4
+  database: capstonedb
+  user: capstoneuser
+  # Set securely via Jenkins credentials at deploy time; do not commit passwords.
+  password: ""
+  rootPassword: ""
+  storageSize: 8Gi
+  storageClass: capstone-gp3
