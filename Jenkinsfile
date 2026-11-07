@@ -3,7 +3,7 @@ pipeline {
   options { timestamps(); disableConcurrentBuilds() }
   triggers { pollSCM('H/5 * * * *') }
   environment {
-    AWS_REGION = 'us-east-1'
+    AWS_REGION = 'us-east-2'
     ECR_REPOSITORY = 'php-capstone'
     EKS_CLUSTER = 'php-capstone-eks'
   }
